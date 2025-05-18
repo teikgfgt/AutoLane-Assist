@@ -1,0 +1,21 @@
+!nvidia-smi
+
+
+import os
+HOME = os.getcwd()
+print(HOME)
+
+
+%pip install "ultralytics<=8.3.40" supervision roboflow
+import ultralytics
+ultralytics.checks()
+
+!mkdir {HOME}/datasets
+%cd {HOME}/datasets
+from google.colab import userdata
+from roboflow import Roboflow
+
+
+%cd {HOME}
+
+!yolo task=detect mode=train model=yolo11s-seg.pt data={dataset.location}/data.yaml epochs=10 imgsz=640 plots=True
